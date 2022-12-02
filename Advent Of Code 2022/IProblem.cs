@@ -3,6 +3,7 @@
     internal interface IProblem
     {
         int Day { get; set; }
+        public List<string> Lines { get; set; }
         void SolveProblem1();
         void SolveProblem2();
     }

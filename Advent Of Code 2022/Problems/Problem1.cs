@@ -3,28 +3,28 @@
     internal class Problem1 : IProblem
     {
         public int Day { get; set; }
-        public List<string> lines { get; set; }
+        public List<string> Lines { get; set; }
 
         public Problem1()
         {
             Day = 1;
-            lines = File.ReadAllLines($"..\\..\\..\\input{Day}.txt").ToList();
+            Lines = File.ReadAllLines($"..\\..\\..\\input{Day}.txt").ToList();
         }
 
         public void SolveProblem1()
         {
             var totalSum = 0;
             var localSum = 0;
-            for (int i = 0; i < lines.Count; i++)
+            for (int i = 0; i < Lines.Count; i++)
             {
-                if (string.IsNullOrEmpty(lines[i]))
+                if (string.IsNullOrEmpty(Lines[i]))
                 {
                     totalSum = totalSum < localSum ? localSum : totalSum;
                     localSum = 0;
                 }
                 else
                 {
-                    localSum += Int32.Parse(lines[i]);
+                    localSum += Int32.Parse(Lines[i]);
                 }
             }
             totalSum = totalSum < localSum ? localSum : totalSum;
@@ -35,16 +35,16 @@
         {
             var maxSums = new List<int>() { 0, 0, 0 };
             var localSum = 0;
-            for (int i = 0; i < lines.Count; i++)
+            for (int i = 0; i < Lines.Count; i++)
             {
-                if (string.IsNullOrEmpty(lines[i]))
+                if (string.IsNullOrEmpty(Lines[i]))
                 {
                     UpdateMaxSums(maxSums, localSum);
                     localSum = 0;
                 }
                 else
                 {
-                    localSum += Int32.Parse(lines[i]);
+                    localSum += Int32.Parse(Lines[i]);
                 }
             }
             UpdateMaxSums(maxSums, localSum);
