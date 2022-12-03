@@ -7,7 +7,7 @@ namespace AOC
     {
         public static void Main()
         {
-            IProblem problem = new Problem2();
+            IProblem problem = new Problem3();
             //problem.SolveProblem1();
             problem.SolveProblem2();
         }
