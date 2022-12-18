@@ -71,6 +71,19 @@ namespace Advent_Of_Code_2022.Problems
                     Command = null;
                 }
             }
+
+            public char GetPixel(int currentCycle)
+            {
+                //when cycle is 40, treat it as the last cycle in the first row
+                var crtPosition = (currentCycle - 1) % 40;
+                if (Register == crtPosition)
+                    return '#';
+                if (Register - 1 >= 0 && (Register - 1) == crtPosition)
+                    return '#';
+                if (Register + 1 <= 39 && (Register + 1) == crtPosition)
+                    return '#';
+                return '.';
+            }
         }
 
         public void SolveProblem1()
@@ -89,7 +102,7 @@ namespace Advent_Of_Code_2022.Problems
                 }
 
                 // during execution of the current cycle
-                if(cycle % 40 == 20)
+                if (cycle % 40 == 20)
                 {
                     signal += cycle * cpu.Register;
                 }
@@ -98,12 +111,34 @@ namespace Advent_Of_Code_2022.Problems
                 cpu.ExecuteCurrentCommandCycle();
                 cycle++;
             }
-            Console.WriteLine(signal);
         }
 
         public void SolveProblem2()
         {
-            throw new NotImplementedException();
+            var cpu = new CPU();
+            var commandList = Lines.Select(line => new Command(line)).ToList();
+            var cycle = 0;
+            var signal = 0;
+            while (commandList.Any() || cpu.Command != null)
+            {
+                cycle++;
+                // add command and "start executing"
+                if (cpu.Command == null)
+                {
+                    cpu.SetCommand(commandList.First());
+                    commandList = commandList.Skip(1).ToList();
+                }
+
+                // during execution of the current cycle
+                Console.Write(cpu.GetPixel(cycle));
+                if (cycle % 40 == 0)
+                {
+                    Console.WriteLine();
+                }
+
+                //get resolution after cycle
+                cpu.ExecuteCurrentCommandCycle();
+            }
         }
     }
 }
